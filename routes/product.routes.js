@@ -1,13 +1,15 @@
 const {Router} = require('express');
 const ProductRouter = Router();
 const { verifyToken } = require('../middleware/auth');
-const { getProduct, newProduct } = require('../controller/product.controller');
+const { getProduct, newProduct, uProduct, adminPro } = require('../controller/product.controller');
+const { isAdmin } = require('../middleware/admin');
 
-ProductRouter.get("/",(req,res)=>{
-    // console.log(req.cookies)
-    res.send("checking ")
-})
-ProductRouter.get("/productpage", getProduct)
+ProductRouter.get("/userProduct",verifyToken,uProduct);
+
+ProductRouter.get("/productpage",isAdmin, getProduct);
+
+ProductRouter.get("/adminProduct",isAdmin,adminPro);
+
 ProductRouter.post("/createproduct",verifyToken, newProduct);
 
 

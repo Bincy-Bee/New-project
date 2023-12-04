@@ -2,9 +2,8 @@ const mongoose = require('mongoose');
 require("dotenv").config();
 
 const connection = async()=>{
-    // let url = process.env.PORT_URL;
-    // console.log(url)
-    await mongoose.connect('mongodb://127.0.0.1:27017');
+    let url = process.env.PORT_URL;
+    await mongoose.connect(url);
     console.log('Database connected')
 }
 

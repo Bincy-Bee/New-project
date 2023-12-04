@@ -4,7 +4,6 @@ const verifyToken = (req,res,next)=>{
     let {token} = req.cookies;
     if(token){
         const data = jwt.verify(token,"private");
-        console.log(data)
         if(data){
             req.user = data;
             next();

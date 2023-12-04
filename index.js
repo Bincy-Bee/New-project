@@ -13,7 +13,9 @@ app.use(cookie());
 app.use("/user",UserRouter);
 app.use("/product", ProductRouter);
 
-
+app.get("/", (req,res)=>{
+    res.redirect("login")
+})
 
 app.listen(8080,()=>{
     console.log('Server listening on http://localhost:8080');
