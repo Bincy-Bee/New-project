@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Forgot</title>
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/all.min.css">
 </head>
 <body>
     <%- include("nav") %>
-    <section class="log-form">
+    <section class="forgot-form">
         <div class="container">
-            <form action="/user/login" method="post">
-                <h2>Login</h2>
+            <form action="/user/sendmail" method="post">
+                <h2>Forgot Password Reset ?</h2>
+                <p>Please enter your registered email</p>
                 <input type="email" name="email" placeholder="Enter Email"><br><br>
-                <input type="text" name="password" placeholder="Enter Password">
-                <p><a href="/user/forgotpassword">Forgot Pasword ?</a></p><br>
-                <input type="submit" value="Login" id="logsub">
+                <input type="submit" value="Submit" id="forsub">
             </form>
         </div>
     </section>

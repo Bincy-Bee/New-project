@@ -1,4 +1,10 @@
-const { product } = require("../model/product.model")
+const { product } = require("../model/product.model");
+require("dotenv").config();
+
+
+const products = (req,res)=>{
+    res.render("home")
+}
 
 const uProduct = async(req,res)=>{
     try {
@@ -21,6 +27,10 @@ const adminPro = async(req,res)=>{
     }
 }
 
+const adminpage = (req,res)=>{
+    res.render("admin");
+}
+
 const newProduct = async(req,res)=>{
     try {
         req.body.createdBy = req.user.id;
@@ -31,4 +41,15 @@ const newProduct = async(req,res)=>{
     }
 }
 
-module.exports={ uProduct,getProduct,adminPro, newProduct}
+const cartpage = (req,res)=>{
+    res.render("cart")
+}
+
+const addCart = async(req,res)=>{
+    let {productId} = req.body;
+    let userId = req.user.id;
+    req.body.userId = userId;
+    console.log(productId, req.body.userId);
+}
+
+module.exports={products, uProduct,getProduct,adminPro,adminpage, newProduct, cartpage, addCart}

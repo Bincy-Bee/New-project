@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin-Product</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/all.min.css">
+</head>
+<body>
+    <%- include("nav") %>
+    <section class="home">
+        <div class="container">
+            <div id="filterTab">
+                <div class="row">
+                    <span class="filter">Filter by</span>
+                    <button>Men</button>
+                    <button>Women</button>
+                    <button>Kids</button>
+                    <span class="sort">Sort by</span>
+                    <button>Low to High</button>
+                    <button>High to Low</button>
+                </div>
+            </div>
+            <div id="show">
+        
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+
+
+const display=(data)=>{
+    document.getElementById("show").innerHTML="";
+    data.map((ele)=>{
+        let img = document.createElement("img");
+        img.src= ele.image;
+
+        let title = document.createElement("h3");
+        title.innerHTML= ele.title;
+
+        let desc = document.createElement("p");
+        desc.innerHTML = ele.desc;
+
+        let price = document.createElement("p");
+        price.innerHTML = `Rs. : ${ele.price}`;
+
+        let size = document.createElement("h5");
+        size.innerHTML =`Size : ${ele.size}`;
+
+        let div1 = document.createElement("div");
+        div1.setAttribute("class", "div1");
+        div1.append(img);
+
+        let div2 = document.createElement("div");
+        div2.setAttribute("class", "div2");
+        div2.append(title,desc,price,size);
+
+        let div = document.createElement("div");
+        div.setAttribute("class", "maindiv");
+        div.append(div1,div2);
+
+        document.getElementById("show").append(div);
+    })
+}
+
+    const get = async()=>{
+        fetch(`/product/adminProduct`)
+        .then((res)=> res.json())
+        .then((data)=>{
+            console.log(data);
+            display(data)
+        })
+    }
+    get();
+</script>
+</html>

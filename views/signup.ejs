@@ -4,21 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/all.min.css">
 </head>
 <body>
-    <form action="/user/signup" method="post">
-        <label for="username">Username</label><br>
-        <input type="text" name="" placeholder="Enter Username"><br><br>
-        <label for="password">Password</label><br>
-        <input type="text" name="password" placeholder="Enter Password"><br><br>
-        <label for="email">Email</label><br>
-        <input type="email" name="email" placeholder="Enter Email"><br><br>
-        <label for="role">Role</label>
-        <select name="role" id="role">
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-        </select><br><br>
-        <input type="submit" value="Submit">
-    </form>
+    <%- include("nav") %>
+    <section class="sign-form">
+        <div class="container">
+            <form action="/user/signup" method="post">
+                <h2>Signup</h2>
+                <input type="text" name="" placeholder="Enter Username"><br><br>
+                <input type="text" name="password" placeholder="Enter Password"><br><br>
+                <input type="email" name="email" placeholder="Enter Email"><br><br>
+                <select name="role" id="role">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select><br><br>
+                <input type="submit" value="Submit" id="signsub">
+            </form>
+        </div>
+    </section>
+    
 </body>
 </html>

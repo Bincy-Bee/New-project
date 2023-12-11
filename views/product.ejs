@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product add</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/all.min.css">
 </head>
+
 <body>
-    <form action="/product/createproduct" method="post">
-        <label for="title"></label>Title<br>
-        <input type="text" name="title" placeholder="Enter title"><br><br>
-        <label for="price">Price</label><br>
-        <input type="text" name="price" placeholder="Enter price"><br><br>
-        <label for="desc">Description</label><br>
-        <input type="text" name="desc" placeholder="Enter description"><br><br>
-        <label for="category">Category</label><br>
-        <input type="text" name="category" placeholder="Enter category"><br><br>
-        <label for="image">Image</label><br>
-        <input type="url" name="image" placeholder="Enter image url"><br><br>
-        <label for="stock">Stock</label><br>
-        <input type="text" name="stock" placeholder="Enter stock"><br><br>
-        <label for="size">Size</label><br>
-        <input type="text" name="size" placeholder="Enter size"><br><br>
-        <label for="color">Color</label><br>
-        <input type="text" name="color" placeholder="Enter color"><br><br>
-        <input type="submit" value="Add">
-    </form>
+    <%- include("nav") %>
+        <section class="pro-form">
+            <div class="container">
+                <form action="/product/createproduct" method="post">
+                    <h2>Product Detailes  :</h2>
+                    <input type="text" name="title" placeholder="Enter title"><br><br>
+                    <input type="text" name="desc" placeholder="Enter description"><br><br>
+                    <input type="text" name="price" placeholder="Enter price"><br><br>
+                    <input type="text" name="category" placeholder="Enter category"><br><br>
+                    <input type="url" name="image" placeholder="Enter image url"><br><br>
+                    <input type="text" name="stock" placeholder="Enter stock"><br><br>
+                    <input type="text" name="size" placeholder="Enter size"><br><br>
+                    <input type="text" name="color" placeholder="Enter color"><br><br>
+                    <input type="submit" value="Add" id="addproduct">
+                </form>
+            </div>
+        </section>
 </body>
+
 </html>
