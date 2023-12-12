@@ -31,11 +31,11 @@
 <script>
 const cartada=(id)=>{
 
-    fetch(`/product/cart`,{
-        method:"POST",
-        headers : {"content-type":"application/json"},
-        body : JSON.stringify({productId : id})
-    })
+    // fetch(`/product/cart`,{
+    //     method:"POST",
+    //     headers : {"content-type":"application/json"},
+    //     body : JSON.stringify({productId : id})
+    // })
 }
 
 
@@ -52,19 +52,22 @@ const display=(data)=>{
         desc.innerHTML = ele.desc;
 
         let price = document.createElement("p");
-        price.innerHTML = `Rs. : ${ele.price}`;
+        price.innerHTML = `<i class="fa-solid fa-indian-rupee-sign"></i> : ${ele.price}`;
 
         let size = document.createElement("h5");
         size.innerHTML =`Size : ${ele.size}`;
 
         let btn = document.createElement("button");
         btn.setAttribute("class", "addcart")
-        btn.innerHTML = "Add To Bag";
-        btn.addEventListener("click", ()=> cartada(ele._id));
+        btn.innerHTML = "Buy";
+        // btn.addEventListener("click", ()=> cartada(ele._id));
 
         let div1 = document.createElement("div");
         div1.setAttribute("class", "div1");
         div1.append(img);
+        div1.addEventListener("click",()=>{
+            window.location.href=`/product/singleproduct/${ele._id}`;
+        })
 
         let div2 = document.createElement("div");
         div2.setAttribute("class", "div2");
@@ -85,6 +88,7 @@ const display=(data)=>{
             console.log(data);
             display(data)
         })
+        .catch((err)=>console.log(err))
     }
     get();
 </script>

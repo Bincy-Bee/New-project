@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SingleProduct</title>
+    <link rel="stylesheet" href="/all.min.css">
+</head>
+
+<body>
+    <%- include("nav") %>
+        <section class="singleproduct">
+            <div class="container">
+                <div class="between">
+                    <div class="title">
+                        <h1>Buy
+                            <%= single.title %>
+                        </h1>
+                        <p>Bank Offers 10% off on Credit Card EMI Transactions and aboveT&C</p>
+                    </div>
+                    <div class="offer">
+                        <div class="align">
+                            <p>Get <i class="fa-solid fa-indian-rupee-sign"></i>500 to <i
+                                    class="fa-solid fa-indian-rupee-sign"></i> 1500 on order above <i
+                                    class="fa-solid fa-indian-rupee-sign"></i> 5000 <i
+                                    class="fa-solid fa-circle-plus"></i> </p><br>
+                            <p>Cashback** & No Cost EMI** <i class="fa-solid fa-circle-plus"></i></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="productimg">
+                        <img alt="" src=<%=single.image %> >
+                    </div>
+                    <div class="productinfo">
+                        <h3>
+                            <%= single.desc %>
+                        </h3>
+                        <h3>
+                            <%= single.category %>
+                        </h3>
+                        <h3><span><i class="fa-solid fa-indian-rupee-sign"></i></span>
+                            <%= single.price %>
+                        </h3>
+                        <p class="size">Size.<span>Which size is comfortable for you ?</span>
+                            <%= single.size %>
+                        </p class="color">
+                        <p>Color.<span> Pick your favourite.</span>
+                            <%= single.color %>
+                        </p>
+                    </div>
+                </div>
+                <div class="btn">
+                    <button id="buynow">Buy</button>
+                    <button id="cartaddproduct">Add To Bag</button>
+                </div>
+                <div class="detailes">
+                    <h5>Returns</h5>
+                    <p>Easy 15 days return and exchange. Return Policies may vary based on products and promotions. For
+                        full details as below rules of Returns Policies.</p><br>
+                    <p>While raising a request for return on the Platforms, the User shall have the option to seek a
+                        refund of the monies paid by him/her towards the purchase of the Product. The User will be
+                        required to produce a copy of the original invoice at the time of placing a request for return
+                        of Products.</p><br>
+                    <p>You shall keep the Products in its unused, original condition, along with the original invoice/
+                        sale receipt, brand outer box, MRP tags attached, user manual, warranty cards, and original
+                        accessories in manufacturer packaging for a successful return pick-up. We would accept the
+                        request for return of such Product subject to the terms of this Policy.</p><br>
+                    <p>It is hereby clarified that in the case of electronics, notwithstanding anything to the contrary
+                        to this Policy and subject to paragraph (l) below, Users cannot return electronic Products which
+                        are specified as ‘non-returnable’ on the relevant Products detail pages of the Platforms.</p>
+                    <br>
+                    <h5>Promises</h5>
+                    <p>We assure the authenticity and quality of our products</p>
+                </div>
+            </div>
+        </section>
+</body>
+<script>
+    let url = window.location.href.split("/");
+    let id = url[url.length - 1];
+
+    const addtocart = (id) => {
+        fetch(`/product/cart`, {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ productId: id })
+        })
+        .then((res) => res.json())
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err))
+    }
+
+    document.getElementById("cartaddproduct").addEventListener("click", () => addtocart(id))
+</script>
+
+</html>

@@ -120,8 +120,24 @@ const resestpass=async(req,res)=>{
         let {newpassowrd , confirmpassowrd} =req.body;
         if(newpassowrd == confirmpassowrd){
             let updatePass = await user.findByIdAndUpdate(req.user.id,{password : newpassowrd})
-            console.log(updatePass);
-            res.send({message:"Password change sucessfully"})
+            let newdata= await user.findById(req.user.id);
+            if(newdata){
+                bcrypt.hash(newdata.password,5,async(err, hash)=>{
+                    if(err){
+                        return res.send({Error: err.message});
+                    }
+                    else{
+                        let obj = {
+                            email:newdata.email,
+                            password:hash,
+                            username:newdata.username,
+                            role:newdata.role
+                        }
+                        let data = await user.findOneAndUpdate(obj)
+                        return res.send({msg : "Passowrd change please login again", value:data});
+                    }
+                })
+            }
         }
         else{
             res.send({message:"Passowrd is not matched, Login  again"})
