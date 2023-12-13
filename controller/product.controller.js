@@ -60,8 +60,20 @@ const addCart = async(req,res)=>{
     let userId = req.user.id;
     req.body.userId = userId;
     try {
-        let data = await Cart.create({userId, productId});
-        res.send({message: "Add to bag successfully", product:data})
+        let item = await product.findById({_id:productId});
+        let cart = await Cart.findOne({productId});
+
+        if(cart){
+            if(cart.productId == item.id){
+                cart.quantity = cart.quantity + 1
+            }
+            await cart.save();
+            res.send(cart)
+        }
+        else{
+            let data = await Cart.create({userId, productId});
+            res.send({message: "Add to bag successfully", product:data})
+        }
     } catch (error) {
         return res.send({Error : error.message})
     }
@@ -80,15 +92,14 @@ const singleitem = async(req,res)=>{
 const changeQty = async(req,res)=>{
     try {
         let {id}=req.params;
-        let {quantity}= req.body;
-        let data = await Cart.findOne({productId : id});
-        data.quantity = data.quantity + quantity;
+        let {qty}= req.body;
+        let data = await Cart.findById(id);
+        data.quantity = data.quantity + qty;
         if(data.quantity == 0){
-            await Cart.findOneAndDelete({productId : id})
+            await Cart.findByIdAndDelete(id)
         }
         await data.save();
         res.send(data);
-        // res.send({message:"Cart Updated successfully", updatedData : data})
     } catch (error) {
         return res.send({Error : error.message})
     }

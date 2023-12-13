@@ -32,7 +32,6 @@ const sendMail = (req, res)=>{
         }
     })
     res.render("otp");
-    // res.send({message : "Reset link mail send successfully", details: mailOption})
 }
 
 const signuppage = (req,res)=>{

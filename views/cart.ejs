@@ -11,35 +11,53 @@
 
 <body>
     <%- include("nav") %>
-    <section class="cartpage">
-        <div class="container">
-            <div class="row">
+        <section class="cartpage">
+            <div class="container">
+                <div class="yourbag">
+                    <h2>Your bag total is <span id="maintotal">₹ 0.00</span>.</h2>
+                    <button>Check Out</button>
+                    <hr>
+                </div>
                 <div id="show">
                 </div>
                 <div class="total">
+                    <div class="rowtotal">
+                        <h3>Subtotal</h3>
+                        <p id="subtotal">₹ 0.00</p>
+                    </div>
+                    <div class="rowtotal">
+                        <h3>Shipping</h3>
+                        <p>FREE</p>
+                    </div>
+                    <hr>
+                    <div class="rowtotal">
+                        <h2>Total</h2>
+                        <h2 id="total">₹ 0.00</h2>
+                    </div>
+                    <div class="checkout">
+                        <button>Check Out</button>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
+        </section>
 </body>
 <script>
-    const cartqty=(id,qty)=>{
-
-        fetch(`/product/cart/${id}`,{
-            method:"PATCH",
-            headers:{"content-type":"application/json"},
-            body: JSON.stringify({quantity : qty})
+    const cartqty = (id, qty) => {
+        fetch(`/product/cart/${id}`, {
+            method: "PATCH",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ qty })
         })
-        .then((res)=>res.json())
-        .then((data)=>console.log(data))
-        .catch((err)=>console.log(err))
+            .then((res) => res.json())
+            .then((data) => get())
+            .catch((err) => console.log(err))
     }
 
     const display = (data) => {
-        document.getElementById("show").innerHTML="";
+        let sum =0;
+        document.getElementById("show").innerHTML = "";
         data.map((element) => {
             let ele = element.productId;
-          
+
             let img = document.createElement("img");
             img.src = ele.image;
 
@@ -50,7 +68,7 @@
             desc.innerHTML = ele.desc;
 
             let price = document.createElement("p");
-            price.innerHTML = `Rs. : ${ele.price}`;
+            price.innerHTML = `<i class="fa-solid fa-indian-rupee-sign"></i> ${ele.price}`;
 
             let size = document.createElement("h5");
             size.innerHTML = `Size : ${ele.size}`;
@@ -58,18 +76,18 @@
             let btn1 = document.createElement("button");
             btn1.setAttribute("class", "cartminus")
             btn1.innerHTML = `<i class="fa-solid fa-minus"></i>`;
-            btn1.addEventListener("click", ()=> cartqty(ele._id,-1));
+            btn1.addEventListener("click", () => cartqty(element._id, -1));
 
             let qty = document.createElement("h4");
             qty.innerHTML = element.quantity;
-            qty.setAttribute("id","cartqty")
+            qty.setAttribute("id", "cartqty")
 
             let btn2 = document.createElement("button");
             btn2.setAttribute("class", "cartplus")
             btn2.innerHTML = `<i class="fa-solid fa-plus"></i>`;
-            btn2.addEventListener("click", ()=> cartqty(ele._id,1));
+            btn2.addEventListener("click", () => cartqty(element._id, 1));
 
-            let btn3 =  document.createElement("button");
+            let btn3 = document.createElement("button");
             btn3.setAttribute("class", "cartdel")
             btn3.innerHTML = `<i class="fa-regular fa-trash-can"></i>`;
 
@@ -79,22 +97,31 @@
 
             let div2 = document.createElement("div");
             div2.setAttribute("class", "cartdiv2");
-            div2.append(title, desc, price, size);
+            div2.append(title, desc, size);
 
             let div3 = document.createElement("div");
             div3.setAttribute("class", "cartdiv3");
             div3.append(btn1, qty, btn2);
 
-            let div4 = document.createElement("div");
-            div4.setAttribute("class", "cartdiv4");
-            div4.append(div3, btn3);
+            let div5 = document.createElement("div");
+            div5.setAttribute("class", "cartdiv5");
+            div5.append(price, btn3);
 
             let div = document.createElement("div");
             div.setAttribute("class", "cartmaindiv");
-            div.append(div1, div2, div4 );
+            div.append(div1, div2, div3, div5);
+
+            let total = element.quantity * ele.price;
+            console.log(total)
+            sum = sum + total;
+            console.log(sum)
+
 
             document.getElementById("show").append(div);
         })
+        document.getElementById("subtotal").innerHTML = `<i class="fa-solid fa-indian-rupee-sign"></i> ${sum.toFixed(2)}`;
+        document.getElementById("total").innerHTML = `<i class="fa-solid fa-indian-rupee-sign"></i> ${sum.toFixed(2)}`;
+        document.getElementById("maintotal").innerHTML = `<i class="fa-solid fa-indian-rupee-sign"></i> ${sum.toFixed(2)}`;
     }
     const get = async () => {
         fetch(`/product/cartproduct`)
