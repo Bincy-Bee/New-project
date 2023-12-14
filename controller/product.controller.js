@@ -1,8 +1,13 @@
+const Razorpay = require("razorpay");
 const { Cart } = require("../model/cart.model");
 const { product } = require("../model/product.model");
+const { Address } = require("../model/address.model");
 require("dotenv").config();
 
-
+let razorpay = new Razorpay({
+    key_id: 'rzp_test_2yN6gjtjhdDxG9',
+    key_secret: 'twHdRjCSQA6rzcaa9MtqkUom',
+})
 const products = (req,res)=>{
     res.render("home")
 }
@@ -42,6 +47,21 @@ const newProduct = async(req,res)=>{
     }
 }
 
+//Singlepage
+
+const singleitem = async(req,res)=>{
+    try {
+        let {id} = req.params;
+        let single = await product.findById({_id : id})
+        res.render("singleproduct",{single});
+    } catch (error) {
+        return res.send({Error : error.message})
+    }
+}
+
+
+//Cart
+
 const cartpage = (req,res)=>{
     res.render("cart")
 }
@@ -79,16 +99,6 @@ const addCart = async(req,res)=>{
     }
 }
 
-const singleitem = async(req,res)=>{
-    try {
-        let {id} = req.params;
-        let single = await product.findById({_id : id})
-        res.render("singleproduct",{single});
-    } catch (error) {
-        return res.send({Error : error.message})
-    }
-}
-
 const changeQty = async(req,res)=>{
     try {
         let {id}=req.params;
@@ -105,4 +115,35 @@ const changeQty = async(req,res)=>{
     }
 }
 
-module.exports={products, uProduct,getProduct,adminPro,adminpage, newProduct, cartpage,cartpro, addCart, singleitem, changeQty}
+//Shipping adress
+
+const shippingpage = async(req,res)=>{
+    let userId = req.user.id;
+    req.body.userId = userId;
+    try {
+        let data = await Address.create(req.body);
+        res.send(data)
+    } catch (error) {
+        return res.send({Error : error.message})
+    }
+}
+
+//Payment
+
+const pay = (req,res)=>{
+    let option = {
+        amount: req.body.amount*100,
+    }
+    razorpay.orders.create(option, (err,order)=>{
+        if(err){
+            console.log(err)
+            res.send({Error : err.message})
+        }
+        else{
+            res.send(order)
+        }
+    })
+}
+
+
+module.exports={products, uProduct,getProduct,adminPro,adminpage, newProduct, cartpage,cartpro, addCart, singleitem, changeQty, shippingpage, pay}

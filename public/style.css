@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 body{
-    background-color: #F5F5F7;
+    /* background-color: #F5F5F7; */
     font-size: 14px;
     color: black;
     font-weight: 500;
@@ -620,4 +620,49 @@ header .nav .search i{
     font-weight: 400;
     font-size: 14px;
     color: #707074;
+}
+
+/* Shipping Address */
+
+.address{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.address form{
+    width: 400px;
+}
+.address h2{
+    margin-top: 15px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    padding-top: 10px;
+    font-size: 36px;
+}
+.address form .addrow{
+    display: flex;
+    margin-bottom: 20px;
+}
+.address form .addrow>input:first-child{
+    margin-right: 10px;
+}
+.address form input{
+    padding: 10px 15px;
+    border: 1px solid #86868B;
+    width: 100%;
+    border-radius: 10px;
+    outline: none;
+}
+.address form input:focus{
+    border: 2px solid #0071E3;
+}
+.address form #addsub{
+    background-color: #0071E3;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.address form select:focus{
+    border: 2px solid #0071E3;
 }

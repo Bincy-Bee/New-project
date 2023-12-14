@@ -11,11 +11,11 @@
 
 <body>
     <%- include("nav") %>
-        <section class="cartpage">
+        <section class="cartpage" id="cartmainpag">
             <div class="container">
                 <div class="yourbag">
                     <h2>Your bag total is <span id="maintotal">₹ 0.00</span>.</h2>
-                    <button>Check Out</button>
+                    <button id="check1">Check Out</button>
                     <hr>
                 </div>
                 <div id="show">
@@ -35,12 +35,56 @@
                         <h2 id="total">₹ 0.00</h2>
                     </div>
                     <div class="checkout">
-                        <button>Check Out</button>
+                        <button id="check2">Check Out</button>
                     </div>
                 </div>
         </section>
+        <!-- <section class="address" id="saddress">
+            <div class="container">
+                <h2>Shipping address for faster checkout</h2>
+                <form action="/product/shippingdetail" method="post">
+                    <div class="addrow">
+                        <input type="text" name="fname" placeholder="First Name" id="fname">
+                        <input type="text" name="lname" placeholder="Last Name" id="lname">
+                    </div>
+                    <input type="email" name="email" placeholder="Email Address" id="email"><br><br>
+                    <input type="text" name="line1" placeholder="Address Line 1" id="line1"><br><br>
+                    <input type="text" name="landmark" placeholder="Landmark" id="landmark"><br><br>
+                    <div class="addrow">
+                        <input type="number" name="pincode" placeholder="PIN code" id="pincode"><br><br>
+                        <input type="number" name="phoneno" placeholder="Phone Number" id="phoneno"><br><br>
+                    </div>
+                    <div class="addrow">
+                        <input type="text" name="city" placeholder="City" id="city"><br><br>
+                        <input type="text" name="state" placeholder="State" id="state"><br><br>
+                    </div>
+                    <input type="text" name="country" placeholder="Country" id="country"><br><br>
+                    <input type="button" value="Continue to Payment" id="addsub">
+                </form>
+            </div>
+        </section> -->
 </body>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
+    // document.getElementById("saddress").style.display="none";
+    const handelamount=async(amount)=>{
+        let res = await fetch(`/product/payment`,{
+            method:"POST",
+            headers:{"content-type":"application/json"},
+            body: JSON.stringify({amount:amount})
+        });
+        let order = await res.json();
+        console.log(order)
+
+        let option={
+            key: 'rzp_test_2yN6gjtjhdDxG9',
+            amount : order.amount,
+        }
+        let razoray = new Razorpay (option);
+        razoray.open();
+
+    }
+    
     const cartqty = (id, qty) => {
         fetch(`/product/cart/${id}`, {
             method: "PATCH",
@@ -68,7 +112,7 @@
             desc.innerHTML = ele.desc;
 
             let price = document.createElement("p");
-            price.innerHTML = `<i class="fa-solid fa-indian-rupee-sign"></i> ${ele.price}`;
+            price.innerHTML = `<i class="fa-solid fa-indian-rupee-sign"></i>${ele.price}`;
 
             let size = document.createElement("h5");
             size.innerHTML = `Size : ${ele.size}`;
@@ -112,16 +156,26 @@
             div.append(div1, div2, div3, div5);
 
             let total = element.quantity * ele.price;
-            console.log(total)
             sum = sum + total;
-            console.log(sum)
-
 
             document.getElementById("show").append(div);
         })
-        document.getElementById("subtotal").innerHTML = `<i class="fa-solid fa-indian-rupee-sign"></i> ${sum.toFixed(2)}`;
-        document.getElementById("total").innerHTML = `<i class="fa-solid fa-indian-rupee-sign"></i> ${sum.toFixed(2)}`;
-        document.getElementById("maintotal").innerHTML = `<i class="fa-solid fa-indian-rupee-sign"></i> ${sum.toFixed(2)}`;
+        document.getElementById("subtotal").innerHTML = `₹${sum.toFixed(2)}`;
+        document.getElementById("total").innerHTML = `₹${sum.toFixed(2)}`;
+        document.getElementById("maintotal").innerHTML = `₹${sum.toFixed(2)}`;
+        document.getElementById("check1").addEventListener("click",()=>handelamount(sum))
+        document.getElementById("check2").addEventListener("click",()=>handelamount(sum))
+        // document.getElementById("check1").addEventListener("click",(e)=>{
+        //     e.preventDefault();
+        //     document.getElementById("cartmainpag").style.display="none";
+        //     document.getElementById("saddress").style.display="block";
+        // });
+        // document.getElementById("check2").addEventListener("click",(e)=>{
+        //     e.preventDefault();
+        //     document.getElementById("cartmainpag").style.display="none";
+        //     document.getElementById("saddress").style.display="block";
+            
+        // });
     }
     const get = async () => {
         fetch(`/product/cartproduct`)

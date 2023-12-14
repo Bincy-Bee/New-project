@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Address</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/all.min.css">
+</head>
+
+<body>
+    <%- include("nav") %>
+        <section class="address">
+            <div class="container">
+                <h2>Shipping address for faster checkout</h2>
+                <form action="" method="post">
+                    <div class="addrow">
+                        <input type="text" name="fname" placeholder="First Name">
+                        <input type="text" name="lname" placeholder="Last Name">
+                    </div>
+                    <input type="email" name="email" placeholder="Email Address"><br><br>
+                    <input type="text" name="line1" placeholder="Address Line 1"><br><br>
+                    <input type="text" name="landmark" placeholder="Landmark"><br><br>
+                    <div class="addrow">
+                        <input type="number" name="pincode" placeholder="PIN code"><br><br>
+                        <input type="number" name="phoneno" placeholder="Phone Number"><br><br>
+                    </div>
+                    <div class="addrow">
+                        <input type="text" name="city" placeholder="City"><br><br>
+                        <input type="text" name="state" placeholder="State"><br><br>
+                    </div>
+                    <input type="text" name="country" placeholder="Country"><br><br>
+                    <input type="submit" value="Continue to Payment" id="addsub">
+                </form>
+            </div>
+        </section>
+
+</body>
+
+</html>
