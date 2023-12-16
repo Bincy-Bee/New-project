@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,88 +8,114 @@
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/all.min.css">
 </head>
+
 <body>
     <%- include("nav") %>
-    <section class="home">
-        <div class="container">
-            <div id="filterTab">
-                <div class="row">
-                    <span class="filter">Filter by</span>
-                    <button>Men</button>
-                    <button>Women</button>
-                    <button>Kids</button>
-                    <span class="sort">Sort by</span>
-                    <button>Low to High</button>
-                    <button>High to Low</button>
+        <section class="home">
+            <div class="container">
+                <div id="filterTab">
+                    <div class="row">
+                        <span class="filter">Filter by</span>
+                        <button value="men" id="men">Men</button>
+                        <button value="women" id="women">Women</button>
+                        <button value="kids" id="kids">Kids</button>
+                        <span class="sort">Sort by</span>
+                        <button value="lth" id="lth">Low to High</button>
+                        <button value="htl" id="htl">High to Low</button>
+                    </div>
+                </div>
+                <div id="show">
+
                 </div>
             </div>
-            <div id="show">
-        
-            </div>
-        </div>
-    </section>
+        </section>
 </body>
 <script>
-const cartada=(id)=>{
-
-    // fetch(`/product/cart`,{
-    //     method:"POST",
-    //     headers : {"content-type":"application/json"},
-    //     body : JSON.stringify({productId : id})
-    // })
-}
 
 
-const display=(data)=>{
-    document.getElementById("show").innerHTML="";
-    data.map((ele)=>{
-        let img = document.createElement("img");
-        img.src= ele.image;
+    // const cartada=(id)=>{
 
-        let title = document.createElement("h3");
-        title.innerHTML= ele.title;
+    //     // fetch(`/product/cart`,{
+    //     //     method:"POST",
+    //     //     headers : {"content-type":"application/json"},
+    //     //     body : JSON.stringify({productId : id})
+    //     // })
+    // }
 
-        let desc = document.createElement("p");
-        desc.innerHTML = ele.desc;
 
-        let price = document.createElement("p");
-        price.innerHTML = `<i class="fa-solid fa-indian-rupee-sign"></i> : ${ele.price}`;
+    const display = (data) => {
+        document.getElementById("show").innerHTML = "";
+        data.map((ele) => {
+            let img = document.createElement("img");
+            img.src = ele.image;
 
-        let size = document.createElement("h5");
-        size.innerHTML =`Size : ${ele.size}`;
+            let title = document.createElement("h3");
+            title.innerHTML = ele.title;
 
-        let btn = document.createElement("button");
-        btn.setAttribute("class", "addcart")
-        btn.innerHTML = "Buy";
-        // btn.addEventListener("click", ()=> cartada(ele._id));
+            let desc = document.createElement("p");
+            desc.innerHTML = ele.desc;
 
-        let div1 = document.createElement("div");
-        div1.setAttribute("class", "div1");
-        div1.append(img);
-        div1.addEventListener("click",()=>{
-            window.location.href=`/product/singleproduct/${ele._id}`;
+            let price = document.createElement("p");
+            price.innerHTML = `<i class="fa-solid fa-indian-rupee-sign"></i>${ele.price}`;
+
+            let size = document.createElement("h5");
+            size.innerHTML = `Size : ${ele.size}`;
+
+            let btn = document.createElement("button");
+            btn.setAttribute("class", "addcart")
+            btn.innerHTML = "Buy";
+            // btn.addEventListener("click", ()=> cartada(ele._id));
+
+            let div1 = document.createElement("div");
+            div1.setAttribute("class", "div1");
+            div1.append(img);
+            div1.addEventListener("click", () => {
+                window.location.href = `/product/singleproduct/${ele._id}`;
+            })
+
+            let div2 = document.createElement("div");
+            div2.setAttribute("class", "div2");
+            div2.append(title, desc, price, size, btn);
+
+            let div = document.createElement("div");
+            div.setAttribute("class", "maindiv");
+            div.append(div1, div2);
+
+            document.getElementById("show").append(div);
         })
+    }
 
-        let div2 = document.createElement("div");
-        div2.setAttribute("class", "div2");
-        div2.append(title,desc,price,size,btn);
+    const handelquery = (query) => {
+        fetch(`/product/filter?category=${query}`)
+            .then((res) => res.json())
+            .then((data) => {
+                display(data)
+            })
+            .catch((err) => console.log(err))
+    }
+    const handelsort = (pquery) => {
+        fetch(`/product/sort?sort=${pquery}`)
+            .then((res) => res.json())
+            .then((data) => {
+                display(data)
+            })
+            .catch((err) => console.log(err))
+    }
 
-        let div = document.createElement("div");
-        div.setAttribute("class", "maindiv");
-        div.append(div1,div2);
-
-        document.getElementById("show").append(div);
-    })
-}
-
-    const get = async()=>{
+    document.getElementById("men").addEventListener("click", () => handelquery("Men"));
+    document.getElementById("women").addEventListener("click", () => handelquery("Women"));
+    document.getElementById("kids").addEventListener("click", () => handelquery("Kids"));
+    document.getElementById("lth").addEventListener("click", () => handelsort("lth"));
+    document.getElementById("htl").addEventListener("click", () => handelsort("htl"));
+    const get = async () => {
         fetch(`/product/userProduct`)
-        .then((res)=> res.json())
-        .then((data)=>{
-            display(data)
-        })
-        .catch((err)=>console.log(err))
+            .then((res) => res.json())
+            .then((data) => {
+                display(data)
+            })
+            .catch((err) => console.log(err))
     }
     get();
 </script>
+
 </html>

@@ -54,7 +54,7 @@ const signup = async(req,res)=>{
                     let obj={email,password:hash,username,role}
                     let data = await user.create(obj);
                     let token = jwt.sign({id : data._id, role : data.role}, "private");
-                    return res.cookie("token", token).send({msg : "User Signed up", value:data});
+                    return res.cookie("token", token).cookie("role", data.role).send({msg : "User Signed up", value:data});
                 }
             })
         }
@@ -80,7 +80,7 @@ const login = async(req,res)=>{
                 }
                 if(result){
                     let token = jwt.sign({id : data._id, role : data.role}, "private");
-                    return res.cookie("token", token).send({message:'Login Successfully'})
+                    return res.cookie("token", token).cookie("role", data.role).send({message:'Login Successfully'})
                 }
                 else{
                     return res.send({message:"Password is incorrect"})

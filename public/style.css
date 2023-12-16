@@ -95,6 +95,14 @@ header .nav .search i{
     border-radius: 10px;
     cursor: pointer;
 }
+.home #filterTab button:active{
+    background-color: #0071E3;
+    color: white;
+}
+.home #filterTab button:focus{
+    background-color: #0071E3;
+    color: white;
+}
 .home #show{
     display: grid;
     grid-template-columns: repeat(2, 1fr);

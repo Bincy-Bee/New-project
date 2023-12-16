@@ -1,9 +1,10 @@
 const {Router} = require('express');
 const ProductRouter = Router();
 const { verifyToken } = require('../middleware/auth');
-const { getProduct, newProduct, uProduct, adminPro, cartpage, addCart, products, adminpage, cartpro, singleitem, changeQty, shippingpage, pay } = require('../controller/product.controller');
+const { getProduct, newProduct, uProduct, adminPro, cartpage, addCart, products, adminpage, cartpro, singleitem, changeQty, shippingpage, pay, filterQuery, byprice, searchProduct } = require('../controller/product.controller');
 const { isAdmin } = require('../middleware/admin');
 const { fieldCheck } = require('../middleware/fieldCheck');
+const { filter } = require('bluebird');
 
 ProductRouter.get("/home", products)
 
@@ -19,6 +20,10 @@ ProductRouter.post("/createproduct",verifyToken,fieldCheck, newProduct);
 
 ProductRouter.get("/singleproduct/:id", singleitem);
 
+ProductRouter.get("/filter",filterQuery);
+
+ProductRouter.get("/sort",byprice);
+
 ProductRouter.get("/cart", verifyToken, cartpage);
 
 ProductRouter.get("/cartproduct",verifyToken,cartpro);
@@ -29,7 +34,9 @@ ProductRouter.patch("/cart/:id",changeQty);
 
 ProductRouter.post("/shippingdetail",verifyToken, shippingpage);
 
-ProductRouter.post("/payment", pay)
+ProductRouter.get("/search",searchProduct);
+
+ProductRouter.post("/payment",pay);
 
 
 module.exports={ProductRouter}

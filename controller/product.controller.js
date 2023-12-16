@@ -2,6 +2,7 @@ const Razorpay = require("razorpay");
 const { Cart } = require("../model/cart.model");
 const { product } = require("../model/product.model");
 const { Address } = require("../model/address.model");
+const fuse =require('fuse.js');
 require("dotenv").config();
 
 let razorpay = new Razorpay({
@@ -42,6 +43,37 @@ const newProduct = async(req,res)=>{
         req.body.createdBy = req.user.id;
         let data = await product.create(req.body);
         res.send({message:"New product added by Admin", value : data})
+    } catch (error) {
+        return res.send({Error : error.message})
+    }
+}
+const filterQuery= async(req,res)=>{
+    try {
+        let {category}=req.query;
+        let obj = {};
+        if(category){
+            obj.category = category
+        }
+        let data =await product.find(obj);
+        res.send(data)
+    } catch (error) {
+        return res.send({Error : error.message})
+    }
+}
+const byprice = async(req,res)=>{
+    try {
+        let {sort}=req.query;
+        let data;
+        if(sort){
+            if(sort == "lth"){
+                data = await product.find().sort({price:1})
+            }
+            else if(sort == "htl"){
+                data = await product.find().sort({price:-1})
+            }
+            res.send(data)
+        }
+
     } catch (error) {
         return res.send({Error : error.message})
     }
@@ -144,6 +176,21 @@ const pay = (req,res)=>{
         }
     })
 }
+//Search
+const searchProduct = async(req,res)=>{
+    try {
+        let searchquery = req.query.products;
+        console.log(searchquery)
+        let proFind = await product.find();
+        let option = { keys : ["title","desc","category","color"]}
 
+        const fuseFilter = new fuse(proFind,option);
+        const result = fuseFilter.search(searchquery);
+        res.send(result);
+        
+    } catch (error) {
+        return res.send({Error : error.message})
+    }
+}
 
-module.exports={products, uProduct,getProduct,adminPro,adminpage, newProduct, cartpage,cartpro, addCart, singleitem, changeQty, shippingpage, pay}
+module.exports={products, uProduct,getProduct,adminPro,adminpage, newProduct, cartpage,cartpro, addCart, singleitem, changeQty, shippingpage, pay, filterQuery, byprice, searchProduct}

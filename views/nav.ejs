@@ -13,28 +13,85 @@
         <div class="container">
             <div class="nav">
                 <div class="row">
-                    <a href="/product/home">Home</a>
-                    <a href="/product/productpage">Product</a>
-                    <a href="/product/admin">Admin</a>
+                    <a href="/product/home" id="home">Home</a>
+                    <a href="/product/productpage" id="adminPro">Product</a>
+                    <a href="/product/admin" id="admin">Admin</a>
                 </div>
                 <div class="search">
-                    <label for=""><input type="search" placeholder="Search">
+                    <label for=""><input type="search" placeholder="Search" id="search">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </label>
                 </div>
                 <div class="row">
-                    <a href="/product/cart">Cart</a>
-                    <a href="/user/signup">Signup</a>
-                    <a href="/user/login">Login</a>
+                    <a href="/product/cart" id="" >Cart</a>
+                    <a href="/user/signup" id="signup" >Signup</a>
+                    <a href="/user/login" id="login" >Login</a>
+                    <a id="logout" href="">Logout</a>
                 </div>
             </div>
         </div>
     </header>
 </body>
 <script>
-    let cookies = document.cookie.split("=")[1];
+    document.getElementById("logout").style.display="none";
+   
+    let cookie = document.cookie;
+    if(cookie){
+        document.getElementById("signup").style.display="none";
+        document.getElementById("login").style.display="none";
+        document.getElementById("logout").style.display="block";
+    }
+    let deletCookie = (name)=>{
+        document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
+    let definerole =  document.cookie.split(";")[1]
+    let role = document.cookie.split(";")[1].split("=")[1];
+    
+    if(role == 'admin'){
+        document.getElementById("adminPro").style.display="block";
+        document.getElementById("admin").style.display="block";
+    }else{
+        document.getElementById("adminPro").style.display="none";
+        document.getElementById("admin").style.display="none";
+    }
+    
+    document.getElementById("logout").addEventListener("click",()=>deletCookie(cookie));
+    document.getElementById("logout").addEventListener("click",()=>deletCookie(definerole));
 
-
+    // function bounce(){
+    //     let insearch = document.getElementById("search").value;
+    //     console.log(insearch)
+    //     fetch(`/product/search?products=${insearch}`)
+    //     .then((res)=>res.json())
+    //     .then((data)=>{
+    //         console.log(data)
+    //     })
+    //     .catch((err)=>console.log(err))
+    // }
+    // const mySearch=(cb,t)=>{
+    //     let timer;
+    //     return ()=>{
+    //         if(timer){
+    //             clearTimeout(timer)
+    //         }
+    //         timer = setTimeout(()=>{
+    //             cb();
+    //         }, t)
+    //     }
+    // }
+    // document.getElementById("search").addEventListener("input",()=>mySearch(bounce,1000));
+    document.getElementById("search").addEventListener("input",(e)=>{
+        e.preventDefault();
+        let insearch = document.getElementById("search").value;
+        setTimeout(()=>{
+            fetch(`/product/search?products=${insearch}`)
+            .then((res)=>res.json())
+            .then((data)=>{
+                console.log(data)
+            })
+            .catch((err)=>console.log(err))
+        },1000)        
+    });
 </script>
 
 </html>
