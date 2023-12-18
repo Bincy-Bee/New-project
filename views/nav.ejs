@@ -34,6 +34,8 @@
 </body>
 <script>
     document.getElementById("logout").style.display="none";
+    document.getElementById("adminPro").style.display="none";
+    document.getElementById("admin").style.display="none";
    
     let cookie = document.cookie;
     if(cookie){
@@ -58,28 +60,7 @@
     document.getElementById("logout").addEventListener("click",()=>deletCookie(cookie));
     document.getElementById("logout").addEventListener("click",()=>deletCookie(definerole));
 
-    // function bounce(){
-    //     let insearch = document.getElementById("search").value;
-    //     console.log(insearch)
-    //     fetch(`/product/search?products=${insearch}`)
-    //     .then((res)=>res.json())
-    //     .then((data)=>{
-    //         console.log(data)
-    //     })
-    //     .catch((err)=>console.log(err))
-    // }
-    // const mySearch=(cb,t)=>{
-    //     let timer;
-    //     return ()=>{
-    //         if(timer){
-    //             clearTimeout(timer)
-    //         }
-    //         timer = setTimeout(()=>{
-    //             cb();
-    //         }, t)
-    //     }
-    // }
-    // document.getElementById("search").addEventListener("input",()=>mySearch(bounce,1000));
+    
     document.getElementById("search").addEventListener("input",(e)=>{
         e.preventDefault();
         let insearch = document.getElementById("search").value;
@@ -88,6 +69,7 @@
             .then((res)=>res.json())
             .then((data)=>{
                 console.log(data)
+                document.cookie = 'searchdata' +'='+ data +'; Path=/;';
             })
             .catch((err)=>console.log(err))
         },1000)        

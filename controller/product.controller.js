@@ -147,6 +147,16 @@ const changeQty = async(req,res)=>{
     }
 }
 
+const cartRemove = async(req,res)=>{
+    try {
+        let {id}=req.params;
+        let data = await Cart.findByIdAndDelete(id);
+        res.send(data)
+    } catch (error) {
+        return res.send({Error : error.message})
+    }
+}
+
 //Shipping adress
 
 const shippingpage = async(req,res)=>{
@@ -193,4 +203,4 @@ const searchProduct = async(req,res)=>{
     }
 }
 
-module.exports={products, uProduct,getProduct,adminPro,adminpage, newProduct, cartpage,cartpro, addCart, singleitem, changeQty, shippingpage, pay, filterQuery, byprice, searchProduct}
+module.exports={products, uProduct,getProduct,adminPro,adminpage, newProduct, cartpage,cartpro, addCart, singleitem, changeQty,cartRemove, shippingpage, pay, filterQuery, byprice, searchProduct}

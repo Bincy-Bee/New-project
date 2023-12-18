@@ -37,12 +37,12 @@
                         <h3>
                             <%= single.desc %>
                         </h3>
-                        <h3>
+                        <h4>
                             <%= single.category %>
-                        </h3>
-                        <h3><span><i class="fa-solid fa-indian-rupee-sign"></i></span>
+                        </h4>
+                        <h4><span><i class="fa-solid fa-indian-rupee-sign"></i></span>
                             <%= single.price %>
-                        </h3>
+                        </h4>
                         <p class="size">Size.<span>Which size is comfortable for you ?</span>
                             <%= single.size %>
                         </p class="color">
@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="btn">
-                    <button id="buynow">Buy</button>
+                    <!-- <button id="buynow">Buy</button> -->
                     <button id="cartaddproduct">Add To Bag</button>
                 </div>
                 <div class="detailes">
@@ -76,6 +76,7 @@
                 </div>
             </div>
         </section>
+        <%- include("footer") %>
 </body>
 <script>
     let url = window.location.href.split("/");

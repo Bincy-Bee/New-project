@@ -13,7 +13,8 @@ const verifyToken = (req,res,next)=>{
         }
     }
     else{
-        res.send({message:"Token not received"})
+        // res.send({message:"Please Login"})
+        res.redirect("/user/login")
     }
 }
 

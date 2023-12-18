@@ -63,6 +63,7 @@
                 </form>
             </div>
         </section> -->
+    
 </body>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
@@ -90,6 +91,15 @@
             method: "PATCH",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({ qty })
+        })
+            .then((res) => res.json())
+            .then((data) => get())
+            .catch((err) => console.log(err))
+    }
+
+    const cartRemove = (id)=>{
+        fetch(`/product/cartremove/${id}`,{
+            method:"DELETE"
         })
             .then((res) => res.json())
             .then((data) => get())
@@ -134,6 +144,7 @@
             let btn3 = document.createElement("button");
             btn3.setAttribute("class", "cartdel")
             btn3.innerHTML = `<i class="fa-regular fa-trash-can"></i>`;
+            btn3.addEventListener("click",()=>cartRemove(element._id));
 
             let div1 = document.createElement("div");
             div1.setAttribute("class", "cartdiv1");

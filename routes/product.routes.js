@@ -1,14 +1,13 @@
 const {Router} = require('express');
 const ProductRouter = Router();
 const { verifyToken } = require('../middleware/auth');
-const { getProduct, newProduct, uProduct, adminPro, cartpage, addCart, products, adminpage, cartpro, singleitem, changeQty, shippingpage, pay, filterQuery, byprice, searchProduct } = require('../controller/product.controller');
+const { getProduct, newProduct, uProduct, adminPro, cartpage, addCart, products, adminpage, cartpro, singleitem, changeQty, shippingpage, pay, filterQuery, byprice, searchProduct, cartRemove } = require('../controller/product.controller');
 const { isAdmin } = require('../middleware/admin');
 const { fieldCheck } = require('../middleware/fieldCheck');
-const { filter } = require('bluebird');
 
 ProductRouter.get("/home", products)
 
-ProductRouter.get("/userProduct",verifyToken,uProduct);
+ProductRouter.get("/userProduct",uProduct);
 
 ProductRouter.get("/productpage",isAdmin, getProduct);
 
@@ -31,6 +30,8 @@ ProductRouter.get("/cartproduct",verifyToken,cartpro);
 ProductRouter.post("/cart",verifyToken,addCart);
 
 ProductRouter.patch("/cart/:id",changeQty);
+
+ProductRouter.delete("/cartremove/:id",cartRemove);
 
 ProductRouter.post("/shippingdetail",verifyToken, shippingpage);
 
