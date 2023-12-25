@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="/style.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/all.min.css">
 </head>
 
@@ -14,7 +15,12 @@
         <section class="home">
             <div class="container">
                 <div id="filterTab">
-                    <div class="row">
+                    <div class="filrow">
+                        <div class="search">
+                            <label for=""><input type="search" placeholder="Search" id="search">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </label>
+                        </div>
                         <span class="filter">Filter by</span>
                         <button value="men" id="men">Men</button>
                         <button value="women" id="women">Women</button>
@@ -27,12 +33,21 @@
                 <div id="show">
 
                 </div>
+                <div class="pagination">
+                    <div class="pagirow">
+                        <button value="1" id="one">1</button>
+                        <button value="2" id="two">2</button>
+                        <button value="3" id="three">3</button>
+                        <button value="4" id="four">4</button>
+                        <button value="5" id="five">5</button>
+                    </div>
+                </div>
             </div>
         </section>
-    <%- include("footer") %>
+        <%- include("footer") %>
 </body>
 <script>
-
+    let serchArray=[];
     const display = (data) => {
         document.getElementById("show").innerHTML = "";
         data.map((ele) => {
@@ -75,6 +90,28 @@
         })
     }
 
+    document.getElementById("search").addEventListener("input", (e) => {
+        e.preventDefault();
+        let insearch = document.getElementById("search").value;
+        setTimeout(() => {
+            fetch(`/product/search?products=${insearch}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.length > 0) {
+                        for (i = 0; i < data.length; i++) {
+                            serchArray.push(data[i].item);
+                            display(serchArray)
+                        }
+                    }
+                    else {
+                        get();
+                    }                 
+                })
+                .catch((err) => console.log(err))
+        }, 1000)
+    });
+
+
     const handelquery = (query) => {
         fetch(`/product/filter?category=${query}`)
             .then((res) => res.json())
@@ -83,6 +120,7 @@
             })
             .catch((err) => console.log(err))
     }
+
     const handelsort = (pquery) => {
         fetch(`/product/sort?sort=${pquery}`)
             .then((res) => res.json())
@@ -97,6 +135,22 @@
     document.getElementById("kids").addEventListener("click", () => handelquery("Kids"));
     document.getElementById("lth").addEventListener("click", () => handelsort("lth"));
     document.getElementById("htl").addEventListener("click", () => handelsort("htl"));
+
+    const handlePage= (page)=>{
+        fetch(`/product/pagination?page=${page}`)
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data)
+                display(data)
+            })
+            .catch((err) => console.log(err))
+    }
+    document.getElementById("one").addEventListener("click", ()=> handlePage("1"));
+    document.getElementById("two").addEventListener("click", ()=> handlePage("2"));
+    document.getElementById("three").addEventListener("click", ()=> handlePage("3"));
+    document.getElementById("four").addEventListener("click", ()=> handlePage("4"));
+    document.getElementById("five").addEventListener("click", ()=> handlePage("5"));
+
     const get = async () => {
         fetch(`/product/userProduct`)
             .then((res) => res.json())
@@ -106,6 +160,7 @@
             .catch((err) => console.log(err))
     }
     get();
+
 </script>
 
 </html>

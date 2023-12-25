@@ -15,7 +15,7 @@ const products = (req,res)=>{
 
 const uProduct = async(req,res)=>{
     try {
-        let data = await product.find();
+        let data = await product.find().limit(14);
         res.send(data)
     } catch (error) {
         return res.send({Error : error.message})
@@ -203,4 +203,21 @@ const searchProduct = async(req,res)=>{
     }
 }
 
-module.exports={products, uProduct,getProduct,adminPro,adminpage, newProduct, cartpage,cartpro, addCart, singleitem, changeQty,cartRemove, shippingpage, pay, filterQuery, byprice, searchProduct}
+const pagination = async(req,res)=>{
+    try {
+        const page = parseInt(req.query.page) || 1;
+     
+        const limit = 14;
+
+        const count = await product.countDocuments();
+        
+        const data = await product.find().skip((page-1)*limit).limit(limit);
+        res.send(data)
+        // res.render("home",{ data, current : page, pages : Math.ceil(count/limit)})
+        
+    } catch (error) {
+        return res.send({Error : error.message})
+    }
+}
+
+module.exports={products, uProduct,getProduct,adminPro,adminpage, newProduct, cartpage,cartpro, addCart, singleitem, changeQty,cartRemove, shippingpage, pay, filterQuery, byprice, searchProduct, pagination}

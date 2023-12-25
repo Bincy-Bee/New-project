@@ -41,7 +41,7 @@ header .nav a{
     padding: 5px 0px;
     margin: 0px 20px;
 }
-header .nav .search input{
+/* header .nav .search input{
     padding: 5px 12px;
     border-radius: 5px;
     border: 1px solid #86868B;
@@ -61,6 +61,14 @@ header .nav .search i{
     margin: auto;
     cursor: pointer;
     color: #86868B;
+} */
+header .logo{
+    padding: 5px;
+}
+header .logo i{
+    font-size: 25px;
+    color: black;
+    transform: scale(1.5);
 }
 
 /* home page */
@@ -75,9 +83,15 @@ header .nav .search i{
     justify-content: space-evenly;
     align-items: center;
 }
+.home #filterTab .filrow{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
 .home span{
     font-size: 12px;
     margin-right: 10px;
+    margin-left: 50px;
 }
 .home .sort{
     margin-left: 50px;
@@ -146,7 +160,28 @@ header .nav .search i{
     margin-top:10px ;
     cursor: pointer;
 }
-
+.home #filterTab .search input{
+    padding: 5px 12px;
+    border-radius: 5px;
+    border: 1px solid #86868B;
+    outline: none;
+}
+.home #filterTab .search label{
+    position: relative;
+}
+.home #filterTab .search input:focus{
+    outline: 2px solid #0071E3;
+}
+.home #filterTab .search i{
+    position: absolute;
+    font-size: 14px;
+    top: 65%;
+    left: 90%;
+    transform: translateY(-50%);
+    margin: auto;
+    cursor: pointer;
+    color: #86868B;
+}
 /* Products Page */
 
 .pro-form{
@@ -696,4 +731,36 @@ header .nav .search i{
 .foot h5{
     font-size: 12px;
     margin: 0;
+}
+
+/* Pagination */
+.pagination{
+    padding: 20px;
+}
+.pagination .pagirow{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pagination button{
+    color: #6F6F70;
+    font-size: 12px;
+    padding: 3px 12px;
+    margin: 0px 20px;
+    background-color: #E2E2E4;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.pagination button:first-child:active{
+    background-color: #0071E3;
+    color: white;
+}
+.pagination button:active{
+    background-color: #0071E3;
+    color: white;
+}
+.pagination button:focus{
+    background-color: #0071E3;
+    color: white;
 }
