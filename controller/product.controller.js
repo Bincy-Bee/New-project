@@ -21,6 +21,14 @@ const uProduct = async(req,res)=>{
         return res.send({Error : error.message})
     }
 }
+const allProduct = async(req,res)=>{
+    try {
+        let data = await product.find();
+        res.send(data)
+    } catch (error) {
+        return res.send({Error : error.message})
+    }
+}
 
 const getProduct = (req,res)=>{
     res.render("product")
@@ -172,7 +180,7 @@ const shippingpage = async(req,res)=>{
 
 //Payment
 
-const pay = (req,res)=>{
+const pay =async (req,res)=>{
     let option = {
         amount: req.body.amount*100,
     }
@@ -190,7 +198,6 @@ const pay = (req,res)=>{
 const searchProduct = async(req,res)=>{
     try {
         let searchquery = req.query.products;
-        console.log(searchquery)
         let proFind = await product.find();
         let option = { keys : ["title","desc","category","color"]}
 
@@ -220,4 +227,4 @@ const pagination = async(req,res)=>{
     }
 }
 
-module.exports={products, uProduct,getProduct,adminPro,adminpage, newProduct, cartpage,cartpro, addCart, singleitem, changeQty,cartRemove, shippingpage, pay, filterQuery, byprice, searchProduct, pagination}
+module.exports={products, uProduct,getProduct,adminPro,adminpage, newProduct, cartpage,cartpro, addCart, singleitem, changeQty,cartRemove, shippingpage, pay, filterQuery, byprice, searchProduct, pagination, allProduct}

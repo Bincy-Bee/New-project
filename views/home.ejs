@@ -34,13 +34,7 @@
 
                 </div>
                 <div class="pagination">
-                    <div class="pagirow">
-                        <button value="1" id="one">1</button>
-                        <button value="2" id="two">2</button>
-                        <button value="3" id="three">3</button>
-                        <button value="4" id="four">4</button>
-                        <button value="5" id="five">5</button>
-                    </div>
+                    <div class="pagelist" id="pagination"></div>
                 </div>
             </div>
         </section>
@@ -111,7 +105,6 @@
         }, 1000)
     });
 
-
     const handelquery = (query) => {
         fetch(`/product/filter?category=${query}`)
             .then((res) => res.json())
@@ -136,20 +129,57 @@
     document.getElementById("lth").addEventListener("click", () => handelsort("lth"));
     document.getElementById("htl").addEventListener("click", () => handelsort("htl"));
 
-    const handlePage= (page)=>{
-        fetch(`/product/pagination?page=${page}`)
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data)
-                display(data)
-            })
-            .catch((err) => console.log(err))
+    // const handlePage= (page)=>{
+    //     fetch(`/product/pagination?page=${page}`)
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             display(data)
+    //         })
+    //         .catch((err) => console.log(err))
+    // }
+    // document.getElementById("one").addEventListener("click", ()=> handlePage("1"));
+    // document.getElementById("two").addEventListener("click", ()=> handlePage("2"));
+    // document.getElementById("three").addEventListener("click", ()=> handlePage("3"));
+    // document.getElementById("four").addEventListener("click", ()=> handlePage("4"));
+    // document.getElementById("five").addEventListener("click", ()=> handlePage("5"));
+
+    const paginationDiv = document.getElementById('pagination');
+
+    let currentPage = 1;
+    let itemsPerPage = 14;
+    
+    const datas=(page)=>{
+        fetch(`/product/allproducts?page=${page}`)
+      .then(res => res.json())
+      .then(data => {
+        let numberOfitems = data.length;
+        let totalPages = Math.ceil(numberOfitems / itemsPerPage);
+        setupPagination(currentPage, totalPages);
+      })
+      .catch(error => console.log('Error:', error));
     }
-    document.getElementById("one").addEventListener("click", ()=> handlePage("1"));
-    document.getElementById("two").addEventListener("click", ()=> handlePage("2"));
-    document.getElementById("three").addEventListener("click", ()=> handlePage("3"));
-    document.getElementById("four").addEventListener("click", ()=> handlePage("4"));
-    document.getElementById("five").addEventListener("click", ()=> handlePage("5"));
+    const setupPagination=(currentPage, totalPages)=> {
+        paginationDiv.innerHTML = '';
+
+        for (let i = 1; i <= totalPages; i++) {
+          const btn = document.createElement('button');
+          btn.textContent = i;
+          if (i === currentPage) {
+            btn.classList.add('active');
+          }
+          btn.addEventListener('click', () => {
+            currentPage = i;
+                fetch(`/product/pagination?page=${currentPage}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    display(data)
+                })
+                .catch((err) => console.log(err))
+          });
+          paginationDiv.appendChild(btn);
+        }
+    }
+    datas(currentPage);
 
     const get = async () => {
         fetch(`/product/userProduct`)

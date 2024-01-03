@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const ProductRouter = Router();
 const { verifyToken } = require('../middleware/auth');
-const { getProduct, newProduct, uProduct, adminPro, cartpage, addCart, products, adminpage, cartpro, singleitem, changeQty, shippingpage, pay, filterQuery, byprice, searchProduct, cartRemove, pagination } = require('../controller/product.controller');
+const { getProduct, newProduct, uProduct, adminPro, cartpage, addCart, products, adminpage, cartpro, singleitem, changeQty, shippingpage, pay, filterQuery, byprice, searchProduct, cartRemove, pagination, allProduct } = require('../controller/product.controller');
 const { isAdmin } = require('../middleware/admin');
 const { fieldCheck } = require('../middleware/fieldCheck');
 
@@ -39,7 +39,9 @@ ProductRouter.get("/search",searchProduct);
 
 ProductRouter.post("/payment",pay);
 
-ProductRouter.get("/pagination", pagination)
+ProductRouter.get("/pagination", pagination);
+
+ProductRouter.get("/allproducts", allProduct) //for only teake all product optional
 
 
 module.exports={ProductRouter}

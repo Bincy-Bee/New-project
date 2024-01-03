@@ -176,6 +176,7 @@
         document.getElementById("maintotal").innerHTML = `₹${sum.toFixed(2)}`;
         document.getElementById("check1").addEventListener("click",()=>handelamount(sum))
         document.getElementById("check2").addEventListener("click",()=>handelamount(sum))
+        // document.getElementById("saddress").style.display="none";
         // document.getElementById("check1").addEventListener("click",(e)=>{
         //     e.preventDefault();
         //     document.getElementById("cartmainpag").style.display="none";
@@ -187,6 +188,7 @@
         //     document.getElementById("saddress").style.display="block";
             
         // });
+        // document.getElementById("addsub").addEventListener("click",()=>handelamount(sum))
     }
     const get = async () => {
         fetch(`/product/cartproduct`)
