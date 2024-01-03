@@ -14,12 +14,12 @@
             <div id="filterTab">
                 <div class="row">
                     <span class="filter">Filter by</span>
-                    <button>Men</button>
-                    <button>Women</button>
-                    <button>Kids</button>
+                    <button value="men" id="men">Men</button>
+                    <button value="women" id="women">Women</button>
+                    <button value="kids" id="kids">Kids</button>
                     <span class="sort">Sort by</span>
-                    <button>Low to High</button>
-                    <button>High to Low</button>
+                    <button value="lth" id="lth">Low to High</button>
+                    <button value="htl" id="htl">High to Low</button>
                 </div>
             </div>
             <div id="show">
@@ -29,7 +29,6 @@
     <%- include("footer") %>
 </body>
 <script>
-
 
 const display=(data)=>{
     document.getElementById("show").innerHTML="";
@@ -64,6 +63,30 @@ const display=(data)=>{
         document.getElementById("show").append(div);
     })
 }
+
+const handelquery = (query) => {
+        fetch(`/product/filter?category=${query}`)
+            .then((res) => res.json())
+            .then((data) => {
+                display(data)
+            })
+            .catch((err) => console.log(err))
+    }
+
+    const handelsort = (pquery) => {
+        fetch(`/product/sort?sort=${pquery}`)
+            .then((res) => res.json())
+            .then((data) => {
+                display(data)
+            })
+            .catch((err) => console.log(err))
+    }
+
+    document.getElementById("men").addEventListener("click", () => handelquery("Men"));
+    document.getElementById("women").addEventListener("click", () => handelquery("Women"));
+    document.getElementById("kids").addEventListener("click", () => handelquery("Kids"));
+    document.getElementById("lth").addEventListener("click", () => handelsort("lth"));
+    document.getElementById("htl").addEventListener("click", () => handelsort("htl"));
 
     const get = async()=>{
         fetch(`/product/adminProduct`)

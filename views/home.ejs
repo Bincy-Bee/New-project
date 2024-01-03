@@ -62,8 +62,10 @@
 
             let btn = document.createElement("button");
             btn.setAttribute("class", "addcart")
-            btn.innerHTML = "Offer**";
-            // btn.addEventListener("click", ()=> cartada(ele._id));
+            btn.innerHTML = "Buy";
+            btn.addEventListener("click", ()=> {
+                window.location.href = `/product/singleproduct/${ele._id}`;
+            });
 
             let div1 = document.createElement("div");
             div1.setAttribute("class", "div1");
@@ -128,20 +130,6 @@
     document.getElementById("kids").addEventListener("click", () => handelquery("Kids"));
     document.getElementById("lth").addEventListener("click", () => handelsort("lth"));
     document.getElementById("htl").addEventListener("click", () => handelsort("htl"));
-
-    // const handlePage= (page)=>{
-    //     fetch(`/product/pagination?page=${page}`)
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             display(data)
-    //         })
-    //         .catch((err) => console.log(err))
-    // }
-    // document.getElementById("one").addEventListener("click", ()=> handlePage("1"));
-    // document.getElementById("two").addEventListener("click", ()=> handlePage("2"));
-    // document.getElementById("three").addEventListener("click", ()=> handlePage("3"));
-    // document.getElementById("four").addEventListener("click", ()=> handlePage("4"));
-    // document.getElementById("five").addEventListener("click", ()=> handlePage("5"));
 
     const paginationDiv = document.getElementById('pagination');
 
