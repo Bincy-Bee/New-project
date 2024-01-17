@@ -14,10 +14,17 @@ body{
     max-width: 1140px;
     margin: auto;
 }
-.row{
+.rowS{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: start;
     align-items: center;
+    width: 45%;
+}
+.rowE{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 45%;
 }
 a{
     text-decoration: none;
@@ -64,10 +71,12 @@ header .nav .search i{
 } */
 header .logo{
     padding: 5px;
+    width: 10%;
+    
 }
 header .logo i{
     font-size: 25px;
-    color: black;
+    color: #0071E3;
     transform: scale(1.5);
 }
 
@@ -181,6 +190,12 @@ header .logo i{
     margin: auto;
     cursor: pointer;
     color: #86868B;
+}
+.home #show .maindiv{
+    margin: 5px;
+    padding-left: 10px;
+    border-radius: 15px;
+    border: 1px solid #86868b25;
 }
 /* Products Page */
 
@@ -554,9 +569,7 @@ header .logo i{
     align-items: center;
     
 }
-.singleproduct{
-    margin-top: 50px;
-}
+
 .singleproduct .productimg img{
     width: 100%;
     height: 100%;
@@ -587,11 +600,11 @@ header .logo i{
 .singleproduct .title p{
     font-size: 16px;
     font-weight: 400;
-    margin-bottom: 50px;
+    margin-bottom: 15px;
 }
 .singleproduct .offer{
     margin-top: 15px;
-    margin-bottom: 50px;
+    margin-bottom: 15px;
 }
 .singleproduct .offer .align{
     text-align: right;
@@ -642,7 +655,7 @@ header .logo i{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 50px;
+    padding: 10px 50px 20px;
 }
 .singleproduct .btn button{
     background-color:  #0071E3;
