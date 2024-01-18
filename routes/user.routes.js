@@ -1,7 +1,6 @@
 const {Router} = require('express');
 const { signuppage, signup, login, loginpage, chnagePass, sendMail, otppage, forreset, resestpass } = require('../controller/user.controller');
 const { signField, logField } = require('../middleware/fieldCheck');
-const { verifyToken } = require('../middleware/auth');
 const UserRouter = Router();
 
 UserRouter.get("/signup", signuppage);
@@ -20,6 +19,6 @@ UserRouter.get("/password/:otp", otppage);
 
 UserRouter.post("/password/otp", forreset);
 
-UserRouter.post("/reset",verifyToken, resestpass)
+UserRouter.post("/reset", resestpass)
 
 module.exports={UserRouter}

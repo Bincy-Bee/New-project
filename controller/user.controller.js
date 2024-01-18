@@ -14,8 +14,13 @@ const transport = nodemailer.createTransport({
 
 let otp;
 let link = 'http://localhost:8080/user/password';
-const sendMail = (req, res)=>{
+const sendMail = async(req, res)=>{
     let {email} = req.body;
+    let data = await user.findOne({email:email});
+    if(!data){
+        return res.send({message : 'This Email is not exist'});
+    }
+    else{
     otp = otpGenerator.generate(6,{lowerCaseAlphabets :false, upperCaseAlphabets:false, specialChars:false});
     const mailOption = {
         from : process.env.EMAIL,
@@ -31,7 +36,8 @@ const sendMail = (req, res)=>{
             console.log(info)
         }
     })
-    res.render("otp");
+    res.cookie("id", data._id).render("otp");
+    }
 }
 
 const signuppage = (req,res)=>{
@@ -103,6 +109,7 @@ const otppage = (req,res)=>{
 }
 const forreset = (req,res)=>{
     try {
+        console.log(req.body.otp,otp)
         if (req.body.otp == otp){
             res.render("reset")
         }
@@ -116,10 +123,11 @@ const forreset = (req,res)=>{
 }
 const resestpass=async(req,res)=>{
     try {
-        let {newpassowrd , confirmpassowrd} =req.body;
-        if(newpassowrd == confirmpassowrd){
-            let updatePass = await user.findByIdAndUpdate(req.user.id,{password : newpassowrd})
-            let newdata= await user.findById(req.user.id);
+        let {id} = req.cookies;
+        let {newpass,confirmpass} = req.body;
+        if(newpass == confirmpass){
+            let updatePass = await user.findByIdAndUpdate(id,{password : newpass})
+            let newdata= await user.findById(id);
             if(newdata){
                 bcrypt.hash(newdata.password,5,async(err, hash)=>{
                     if(err){
@@ -133,13 +141,13 @@ const resestpass=async(req,res)=>{
                             role:newdata.role
                         }
                         let data = await user.findOneAndUpdate(obj)
-                        return res.send({msg : "Passowrd change please login again", value:data});
+                        return res.clearCookie("id").send({msg : "Password changed, please login again", value:data});
                     }
                 })
             }
         }
         else{
-            res.send({message:"Passowrd is not matched, Login  again"})
+            res.send({message:"Passowrd is not matched"})
         }
     } catch (error) {
         return res.send({Error : error.message})

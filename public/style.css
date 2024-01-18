@@ -203,14 +203,21 @@ header .logo i{
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
 }
 .pro-form form{
-    width: 400px;
+    width: 500px;
+    padding: 10px 30px 30px;
+    border: 1px solid #86868b44;
+    border-radius: 25px;
+    box-shadow: 0px 0px 10px #86868b44;
 }
 .pro-form form h2{
-    margin-top: 15px;
-    margin-bottom: 20px;
-    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    font-size: 36px;
+    text-align: center;
     font-weight: 600;
 }
 .pro-form form input{
@@ -236,14 +243,20 @@ header .logo i{
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 20px;
 }
 .sign-form form{
-    width: 400px;
+    width: 500px;
+    padding: 10px 30px 30px;
+    border: 1px solid #86868b44;
+    border-radius: 25px;
+    box-shadow: 0px 0px 10px #86868b44;
 }
 .sign-form form h2{
-    margin-top: 15px;
-    margin-bottom: 20px;
-    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    font-size: 36px;
+    text-align: center;
     font-weight: 600;
 }
 .sign-form form input{
@@ -279,14 +292,20 @@ header .logo i{
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 20px;
 }
 .log-form form{
-    width: 400px;
+    width: 500px;
+    padding: 10px 30px 30px;
+    border: 1px solid #86868b44;
+    border-radius: 25px;
+    box-shadow: 0px 0px 10px #86868b44;
 }
 .log-form form h2{
-    margin-top: 15px;
-    margin-bottom: 20px;
-    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    font-size: 36px;
+    text-align: center;
     font-weight: 600;
 }
 .log-form form input{
@@ -320,14 +339,20 @@ header .logo i{
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 20px;
 }
 .forgot-form form{
-    width: 400px;
+    width: 500px;
+    padding: 10px 30px 30px;
+    border: 1px solid #86868b44;
+    border-radius: 25px;
+    box-shadow: 0px 0px 10px #86868b44;
 }
 .forgot-form form h2{
-    margin-top: 15px;
-    margin-bottom: 10px;
-    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    font-size: 36px;
+    text-align: center;
     font-weight: 600;
 }
 .forgot-form form p{
@@ -358,14 +383,20 @@ header .logo i{
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 20px;
 }
 .otp-form form{
-    width: 400px;
+    width: 500px;
+    padding: 10px 30px 30px;
+    border: 1px solid #86868b44;
+    border-radius: 25px;
+    box-shadow: 0px 0px 10px #86868b44;
 }
 .otp-form form h2{
-    margin-top: 15px;
-    margin-bottom: 10px;
-    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    font-size: 36px;
+    text-align: center;
     font-weight: 600;
 }
 .otp-form form p{
@@ -396,14 +427,20 @@ header .logo i{
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 20px;
 }
 .reset-form form{
-    width: 400px;
+    width: 500px;
+    padding: 10px 30px 30px;
+    border: 1px solid #86868b44;
+    border-radius: 25px;
+    box-shadow: 0px 0px 10px #86868b44;
 }
 .reset-form form h2{
-    margin-top: 15px;
-    margin-bottom: 10px;
-    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    font-size: 36px;
+    text-align: center;
     font-weight: 600;
 }
 .reset-form form input{
@@ -430,7 +467,7 @@ header .logo i{
 }
 .cartpage .yourbag{
     text-align: center;
-    margin-top: 25px;
+    margin-top: 10px;
     padding: 10px;
 }
 .cartpage .yourbag h2{

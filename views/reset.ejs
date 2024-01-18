@@ -8,17 +8,28 @@
     <link rel="stylesheet" href="/all.min.css">
 </head>
 <body>
-    <%- include("nav") %>
+    <header>
+        <div class="container">
+            <div class="nav">
+                <div class="rowS">
+                </div>
+                <div class="logo">
+                    <a href="/product/home"><i class="fa-brands fa-square-pied-piper"></i></a>
+                </div>
+                <div class="rowE">
+                </div>
+            </div>
+        </div>
+    </header>
     <section class="reset-form">
         <div class="container">
             <form action="/user/reset" method="post">
                 <h2>Reset Password</h2>
-                <input type="text" name="newpassowrd" placeholder="Enter New Password"><br><br>
-                <input type="text" name="confirmpassowrd" placeholder="Enter Confirm Password"><br><br>
+                <input type="text" name="newpass" placeholder="Enter New Password"><br><br>
+                <input type="text" name="confirmpass" placeholder="Enter Confirm Password"><br><br>
                 <input type="submit" value="Submit" id="resetsub">
             </form>
         </div>
     </section>
-    <%- include("footer") %>
 </body>
 </html>
